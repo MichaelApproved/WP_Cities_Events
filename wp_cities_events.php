@@ -74,6 +74,7 @@ if(!class_exists('WP_Cities_Events'))
                     ),
                 )
             ); // http://codex.wordpress.org/Function_Reference/register_post_type for more options
+            add_action('save_post', array(&$this, 'save_post'));
             
             // City Taxonomy args
             $args = array(
@@ -136,7 +137,7 @@ if(!class_exists('WP_Cities_Events'))
 		{		
 			// Render the job order metabox
 			$event_meta = $this->_event_meta;
-			include(sprintf("%s/../templates/ce_event_metabox.php", dirname(__FILE__)));			
+			include(sprintf("%s/templates/ce_event_metabox.php", dirname(__FILE__)));			
 		} // END public function add_inner_meta_boxes($post)
 		
         /**
