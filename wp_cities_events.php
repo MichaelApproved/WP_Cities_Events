@@ -12,15 +12,15 @@ License: GPL2
 Copyright 2012  Francis Yaconiello  (email : francis@yaconiello.com)
 
 This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License, version 2, as 
+it under the terms of the GNU General License, version 2, as 
 published by the Free Software Foundation.
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+GNU General License for more details.
 
-You should have received a copy of the GNU General Public License
+You should have received a copy of the GNU General License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
@@ -31,7 +31,7 @@ if(!class_exists('WP_Cities_Events'))
     class WP_Cities_Events
     {
         // Used to create the inner meta boxes and in the save function
-        private $_event_meta = array(
+        var $_event_meta = array(
             'when' => array(
                 'label' => 'When',
                 'help_text' => '',
@@ -47,17 +47,17 @@ if(!class_exists('WP_Cities_Events'))
         /**
          * Construct the plugin object
          */
-        public function __construct()
+        function __construct()
         {
             // register actions
             add_action('init', array(&$this, 'init'));
             add_action('admin_init', array(&$this, 'admin_init'));
-        } // END public function __construct
+        } // END function __construct
         
         /**
          * Initialize the plugin
          */
-        public function init()
+        function init()
         {
             // register a custom post type
             register_post_type('ce_event',
@@ -110,16 +110,16 @@ if(!class_exists('WP_Cities_Events'))
         /**
          * hook into WP's admin_init action hook
          */
-        public function admin_init()
+        function admin_init()
         {			
             // Add metaboxes
             add_action('add_meta_boxes', array(&$this, 'add_meta_boxes'));
-        } // END public function admin_init()
+        } // END function admin_init()
 
         /**
          * hook into WP's add_meta_boxes action hook
          */
-        public function add_meta_boxes()
+        function add_meta_boxes()
         {
             // Add this metabox to every selected post
             add_meta_box( 
@@ -128,22 +128,22 @@ if(!class_exists('WP_Cities_Events'))
                 array(&$this, 'add_inner_meta_boxes'),
                 'ce_event'
             );					
-        } // END public function add_meta_boxes()
+        } // END function add_meta_boxes()
 
 		/**
 		 * called off of the add_meta_boxes function
 		 */		
-		public function add_inner_meta_boxes($post)
+		function add_inner_meta_boxes($post)
 		{		
 			// Render the job order metabox
 			$event_meta = $this->_event_meta;
 			include(sprintf("%s/templates/ce_event_metabox.php", dirname(__FILE__)));			
-		} // END public function add_inner_meta_boxes($post)
+		} // END function add_inner_meta_boxes($post)
 		
         /**
         * Save the metaboxes for this custom post type
         */
-        public function save_post($post_id)
+        function save_post($post_id)
         {
             // verify if this is an auto save routine. 
             // If it is our form has not been submitted, so we dont want to do anything
@@ -164,23 +164,23 @@ if(!class_exists('WP_Cities_Events'))
             {
                 return;
             } // if($_POST['post_type'] == 'ce_event' && current_user_can('edit_post', $post_id))
-        } // END public function save_post($post_id)
+        } // END function save_post($post_id)
 
         /**
          * Activate the plugin
          */
-        public static function activate()
+        static function activate()
         {
             // Do nothing
-        } // END public static function activate
+        } // END static function activate
 
         /**
          * Deactivate the plugin
          */        
-        public static function deactivate()
+        static function deactivate()
         {
             // Do nothing
-        } // END public static function deactivate
+        } // END static function deactivate
     } // END class WP_Cities_Events
 } // END if(!class_exists('WP_Cities_Events'))
 
